@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Day14_1
+namespace Day14_2
 {
     class Program
     {
@@ -13,38 +13,17 @@ namespace Day14_1
         {
             //process input into assci values
             string inputStringPrefix = "hfdlxzhv";
-            int sum = 0;
+
             for (int i = 0; i < 128; i++)
             {
-                string key = inputStringPrefix + "-" + i.ToString();
-                string hex = knotHash(key);
-                string binary = "";
-                for (int j = 0; j < hex.Length; j++)
-                {
-                    binary += Convert.ToString(Convert.ToInt32(hex[j].ToString(), 16), 2).PadLeft(4, '0');
-                }
-                sum += CountOnes(binary);
+                
             }
-            Console.WriteLine(sum);
         }
 
-        static private int CountOnes(string binary)
-        {
-            int sum = 0;
-            foreach (char c in binary)
-            {
-                if (c == '1')
-                {
-                    sum++;
-                }
-            }
-            return sum;
-        }
-
-        static private string knotHash(string key)
+        static private string knotHash(string inputString)
         {
             //process input into assci values
-            int[] input = StringToAscii(key);
+            int[] input = StringToAscii(inputString);
             int[] list = new int[256];
             for (int i = 0; i < list.Length; i++)
             {
@@ -79,16 +58,11 @@ namespace Day14_1
 
         static private int[] StringToAscii(string inputString)
         {
-            int[] input = new int[inputString.Length + 5];
+            int[] input = new int[inputString.Length];
             int i = 0;
-            int[] suffix = { 17, 31, 73, 47, 23 };
             foreach (char c in inputString)
             {
                 input[i++] = c;
-            }
-            foreach (int num in suffix)
-            {
-                input[i++] = num;
             }
             return input;
         }
